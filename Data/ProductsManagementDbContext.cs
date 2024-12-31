@@ -1,6 +1,6 @@
-using System.Runtime;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using src.Models;
 
 namespace src.Data
 {
@@ -13,7 +13,7 @@ namespace src.Data
             _dbsettings = dbSettings.Value;
         }
 
-        public DbSet<ProductsManagementDbContext>  { get; set; }
+        public DbSet<ProductsManagement> ProductsManagements { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(_dbsettings.ConnectionString);
@@ -22,8 +22,8 @@ namespace src.Data
         
          protected override void OnModelCreating(ModelBuilder modelBuilder)
          {
-            modelBuilder.Entity<>()
-                .ToTable("")
+            modelBuilder.Entity<ProductsManagement>()
+                .ToTable("ProductsManagement")
                 .HasKey(x => x.Id);
          }
     }
