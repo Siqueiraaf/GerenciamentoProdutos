@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace src.Contracts
 {
@@ -7,14 +6,11 @@ namespace src.Contracts
     {
         [Required]
         [MaxLength(100)]
-        public string ProductName { get; set;}
-
+        public string ProductName { get; set;} = string.Empty;
         [MaxLength(500)]
-        public string Description { get; set;}
-
+        public string Description { get; set;} = string.Empty;
         [MaxLength(50)]
-        public string Category { get; set; }
-
+        public string Category { get; set; } = string.Empty;
         [Required]
         [Range(0.01, double.MaxValue, ErrorMessage = "O preço deve ser maior que zero.")]
         public decimal Price { get; set;}
