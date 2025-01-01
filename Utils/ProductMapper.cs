@@ -53,4 +53,19 @@ namespace src.Utils
     }
 }
 
+/*
+
+ToModel(CreateProductRequestDTO dto)
+Converte um CreateProductRequestDTO para um objeto do modelo ProductsManagement, gerando automaticamente um novo Id.
+
+UpdateModel(ProductsManagement model, UpdateProductRequestDTO dto)
+Atualiza um objeto existente do tipo ProductsManagement com os dados fornecidos em um UpdateProductRequestDTO. Caso algum valor do DTO seja nulo ou inválido, mantém o valor existente.
+
+ToCreateDTO(ProductsManagement model)
+Converte um objeto do modelo ProductsManagement para o DTO CreateProductRequestDTO.
+
+ToUpdateDTO(ProductsManagement model)
+Converte um objeto do modelo ProductsManagement para o DTO UpdateProductRequestDTO.
+
+*/
 
