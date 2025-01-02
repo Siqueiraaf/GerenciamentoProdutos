@@ -1,6 +1,6 @@
 namespace src.Models
 {
-    public class ProductsManagement
+    public class Product
     {
         public Guid Id { get; set; }
         public string ProductName { get; set; } = string.Empty;

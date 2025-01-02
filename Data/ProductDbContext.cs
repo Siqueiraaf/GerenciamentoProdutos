@@ -4,16 +4,16 @@ using src.Models;
 
 namespace src.Data
 {
-    public class ProductsManagementDbContext : DbContext
+    public class ProductDbContext : DbContext
     {
         private readonly DbSettings _dbsettings;
 
-        public ProductsManagementDbContext(IOptions<DbSettings> dbSettings)
+        public ProductDbContext(IOptions<DbSettings> dbSettings)
         {
             _dbsettings = dbSettings.Value;
         }
 
-        public DbSet<ProductsManagement> ProductsManagements { get; set; }
+        public DbSet<Product> Products { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(_dbsettings.ConnectionString);
@@ -22,8 +22,8 @@ namespace src.Data
         
          protected override void OnModelCreating(ModelBuilder modelBuilder)
          {
-            modelBuilder.Entity<ProductsManagement>()
-                .ToTable("ProductsManagement")
+            modelBuilder.Entity<Product>()
+                .ToTable("Product")
                 .HasKey(x => x.Id);
          }
     }

@@ -5,31 +5,31 @@ namespace src.Utils
 {
     public static class ProductMapper
     {
-        public static ProductsManagement ToModel(CreateProductRequestDTO dto)
+        public static Product ToModel(CreateProductRequestDTO requestDTO)
         {
-            return new ProductsManagement
+            return new Product
             {
                 Id = Guid.NewGuid(),
-                ProductName = dto.ProductName,
-                Description = dto.Description,
-                Category = dto.Category,
-                Price = dto.Price,
+                ProductName = requestDTO.ProductName,
+                Description = requestDTO.Description,
+                Category = requestDTO.Category,
+                Price = requestDTO.Price,
                 StockQuantity = 0,
                 DueDate = DateTime.UtcNow.AddYears(1),
             };
         }
 
-        public static ProductsManagement UpdateModel(ProductsManagement model, UpdateProductRequestDTO dto)
+        public static Product UpdateModel(Product model, UpdateProductRequestDTO requestDTO)
         {
-            model.ProductName = dto.ProductName ?? model.ProductName;
-            model.Description = dto.Description ?? model.Description;
-            model.Category = dto.Category ?? model.Category;
-            model.Price = dto.Price > 0 ? model.Price : model.Price;
+            model.ProductName = requestDTO.ProductName ?? model.ProductName;
+            model.Description = requestDTO.Description ?? model.Description;
+            model.Category = requestDTO.Category ?? model.Category;
+            model.Price = requestDTO.Price > 0 ? model.Price : model.Price;
 
             return model;
         }
 
-        public static CreateProductRequestDTO ToCreateDTO(ProductsManagement model)
+        public static CreateProductRequestDTO ToCreateDTO(Product model)
         {
             return new CreateProductRequestDTO
             {
@@ -40,7 +40,7 @@ namespace src.Utils
             };
         }
 
-        public static UpdateProductRequestDTO ToUpdateDTO(ProductsManagement model)
+        public static UpdateProductRequestDTO ToUpdateDTO(Product model)
         {
             return new UpdateProductRequestDTO
             {
@@ -55,10 +55,10 @@ namespace src.Utils
 
 /*
 
-ToModel(CreateProductRequestDTO dto)
+ToModel(CreateProductRequestDTO requestDTO)
 Converte um CreateProductRequestDTO para um objeto do modelo ProductsManagement, gerando automaticamente um novo Id.
 
-UpdateModel(ProductsManagement model, UpdateProductRequestDTO dto)
+UpdateModel(ProductsManagement model, UpdateProductRequestDTO requestDTO)
 Atualiza um objeto existente do tipo ProductsManagement com os dados fornecidos em um UpdateProductRequestDTO. Caso algum valor do DTO seja nulo ou inválido, mantém o valor existente.
 
 ToCreateDTO(ProductsManagement model)
