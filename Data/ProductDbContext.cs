@@ -8,23 +8,29 @@ namespace src.Data
     {
         private readonly DbSettings _dbsettings;
 
-        public ProductDbContext(IOptions<DbSettings> dbSettings)
+        // Construtor padrão para DbContext
+        public ProductDbContext(DbContextOptions<ProductDbContext> options, IOptions<DbSettings> dbSettings)
+            : base(options)
         {
             _dbsettings = dbSettings.Value;
         }
 
         public DbSet<Product> Products { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_dbsettings.ConnectionString);
+            // Configura a conexão com o banco de dados usando a string de conexão
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(_dbsettings.ConnectionString);
+            }
         }
 
-        
-         protected override void OnModelCreating(ModelBuilder modelBuilder)
-         {
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
             modelBuilder.Entity<Product>()
                 .ToTable("Product")
                 .HasKey(x => x.Id);
-         }
+        }
     }
 }

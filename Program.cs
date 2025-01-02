@@ -1,27 +1,40 @@
 using Microsoft.EntityFrameworkCore;
 using src.Data;
+using src.Interfaces;
+using src.Middlewares;
+using src.Models;
+using src.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-
-var app = builder.Build();
-
-// Config do DbContext
-builder.Services.AddDbContext<ProductsManagementDbContext>(options =>
+// Configuração do DbContext
+builder.Services.AddDbContext<ProductDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString"));
 });
 
-// Configure the HTTP request pipeline.
+// Registro dos serviços
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddTransient<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+builder.Services.AddScoped<IProduct, ProductServices>();
+builder.Services.AddLogging();
+
+var app = builder.Build();
+
+// Configuração do middleware
 if (app.Environment.IsDevelopment())
 {
-   // app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
+app.UseExceptionHandler();
+app.UseAuthorization();
 
+app.MapControllers();
 
 app.Run();
-
